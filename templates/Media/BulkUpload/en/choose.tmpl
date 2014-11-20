@@ -1,0 +1,99 @@
+<tmpl_include header.tmpl>
+
+<script type="text/javascript">
+Krang.onload( function() {
+  Krang.Help.set( 'media_bulk_upload' );
+} );
+</script>
+
+<h2>
+Bulk Upload
+</h2>
+
+<form name="upload_form" method="post" enctype="multipart/form-data" action="media_bulk_upload.pl">
+
+<input name="rm" value="upload" type="hidden">
+
+<tmpl_if enable_ftp>
+  <h3>
+  FTP Upload
+  </h3>
+
+  <p><!--:FIXME(db2)-->
+  For use with Internet Explorer or an external FTP client:
+  </p>
+
+  <p><!--:FIXME(db2)-->
+  <a href="ftp://<tmpl_var username>@<tmpl_var ftp_server>:<tmpl_var ftp_port>/<tmpl_var instance>/media" target="_blank">ftp://<tmpl_var escape=html username>@<tmpl_var escape=html ftp_server>:<tmpl_var escape=html ftp_port>/<tmpl_var escape=html instance>/media</a>
+  </p>
+</tmpl_if>
+
+<h3>
+Archive Upload
+</h3>
+
+<table class="request" summary="">
+
+<colgroup>
+<col class="c-label-tiny">
+<col>
+</colgroup>
+
+<tbody>
+
+<tr>
+<th>Archive</th>
+<td><tmpl_var upload_chooser><br />Available formats are: .tar .zip and .sit</td>
+</tr>
+
+<tr>
+<th>Site/Category</th>
+<td><tmpl_var category_chooser></td>
+</tr>
+
+<tr>
+<td colspan="2">
+<input name="create_cats" type="checkbox">
+Create New Categories (to match those within Archive)
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<input id="resize_images" name="resize_images" type="checkbox" onclick="toggle_resize_dimensions(this.checked)">
+Resize large images<br />
+<div id="resize_images_dimensions" style="display:none">
+<input id="resize_max_height" name="resize_max_height" type="text" size=4>
+Maximum height (number of pixels)<br />
+<input id="resize_max_width" name="resize_max_width" type="text" size=4>
+Maximum width (number of pixels)<br />
+</div>
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+<div class="panel capped">
+<input value="Upload" type="submit">
+</div>
+
+</form>
+
+<script type="text/javascript">
+toggle_resize_dimensions = function(value) {
+    if( value ) {
+        $('resize_max_height').enable();
+        $('resize_max_width').enable();
+        $('resize_images_dimensions').show();
+    } else {
+        $('resize_max_height').disable();
+        $('resize_max_width').disable();
+        $('resize_images_dimensions').hide();
+    }
+}
+</script>
+
+<tmpl_include footer.tmpl>
+

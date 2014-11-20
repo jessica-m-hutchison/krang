@@ -1,0 +1,120 @@
+<tmpl_include header.tmpl>
+
+<script type="text/javascript">
+Krang.onload( function() {
+  Krang.Help.set( 'mypref_edit' );
+} );
+
+update_prefs = function() {
+    Krang.Form.submit('edit_pref_form', {}, { to_top : false });
+};
+</script>
+
+<h2>
+Preferences
+</h2>
+
+<form id="edit_pref_form" name="edit_pref_form" action="my_pref.pl" method="post">
+
+<input name="rm" value="update_prefs" type="hidden">
+<tmpl_if password_only>
+  <input name="password_only" value="1" type="hidden">
+</tmpl_if>
+
+<div class="table-container">
+<img src="<tmpl_var static_url>/images/corner-top-left.gif" class="left-corner">
+<img src="<tmpl_var static_url>/images/corner-top-right.gif" class="right-corner">
+<table cellspacing="0" class="props" summary="">
+
+<colgroup>
+<col class="c-label">
+<col>
+</colgroup>
+
+<thead>
+<tr>
+<th class="f l" colspan="2">Preferences</th>
+</thead>
+
+<tbody>
+
+<tmpl_unless password_only>
+  <tr>
+  <td class="f">Search Results per Page</td>
+  <td class="l">
+  <tmpl_var search_results_selector>
+  </td>
+  </tr>
+
+  <tr>
+  <td class="f">Autocomplete Searches?</td>
+  <td class="l"><tmpl_var use_autocomplete_selector></td>
+  </tr>
+
+  <tr>
+  <td class="f">Timeout for Messages</td>
+  <td class="l">
+  <tmpl_var message_timeout_selector>
+  seconds
+  </td>
+  </tr>
+
+  <tr>
+  <td class="f">Use Syntax Highlighting?</td>
+  <td class="l"><tmpl_var syntax_highlighting_radio></td>
+  </tr>
+
+  <tmpl_if multi_lang>
+  <tr>
+  <td class="f">Select Language</td>
+  <td class="l"><tmpl_var language_selector></td>
+  </tr>
+  </tmpl_if>
+
+  <tmpl_if use_preview_editor_selector>
+  <tr>
+  <td class="f">Use Preview Editor?</td>
+  <td class="l"><tmpl_var use_preview_editor_selector></td>
+  </tr>
+  </tmpl_if>
+</tmpl_unless>
+
+<tr>
+<td class="f">Change Account Password</td>
+<td class="l">
+<input name="new_password" type="password" autocomplete="off">
+(new password)
+<br>
+<input name="new_password_repeat" type="password" autocomplete="off">
+(repeat)
+</td>
+</tr>
+
+<tr>
+<td class="f l" colspan="2">
+<tmpl_var escape=html password_spec>
+</td>
+</tr>
+
+</tbody>
+
+</table></div>
+
+<div class="panel">
+<input value="Update Preferences" type="button" onclick="update_prefs()">
+</div>
+
+</form>
+
+<script type="text/javascript">
+Krang.onload(function() { 
+    // reset password fields to be blank in case the browser has remembered them from before
+    setTimeout(function() {
+        document.forms['edit_pref_form'].elements['new_password'].value = '';
+        document.forms['edit_pref_form'].elements['new_password_repeat'].value = '';
+    }, 100);
+});
+</script>
+
+<tmpl_include footer.tmpl>
+

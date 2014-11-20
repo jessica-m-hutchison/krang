@@ -1,0 +1,21 @@
+<tmpl_include progress_header.tmpl>
+
+<h2>
+<tmpl_if preview>
+  Processing Preview Request
+<tmpl_else>
+  Processing Publish Request
+</tmpl_if>
+</h2>
+
+<div class="publish">
+
+<div id="progress"><div id="progress_bar"></div></div>
+
+<div id="progress_bar_percent"></div>
+
+<div id="progress_bar_label"></div>
+
+</div>
+
+<tmpl_include progress_footer.tmpl>

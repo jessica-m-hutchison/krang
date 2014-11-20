@@ -1,0 +1,9 @@
+htdocs/
+logs/
+tmp/
+lib/
+!lib/Krang
+addons/
+apache/
+data/
+data

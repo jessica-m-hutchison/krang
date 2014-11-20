@@ -1,0 +1,144 @@
+<tmpl_include header.tmpl>
+
+<script type="text/javascript">
+Krang.onload( function() {
+  Krang.Help.set( 'template_view' );
+} );
+
+view_log = function()
+{
+  Krang.Form.submit( 'view_log_form' );
+};
+
+do_return = function()
+{
+  Krang.Form.submit( 'return_form' );
+};
+
+<tmpl_unless is_old_version><tmpl_if can_edit>
+  do_edit_template = function()
+  {
+    Krang.Form.submit( 'edit_template_form' );
+  };
+</tmpl_if></tmpl_unless>
+
+// Register CodePress's onload event:
+Krang.onload( function() { 
+  if (! Prototype.Browser.WebKit && Krang.my_prefs().syntax_highlighting == 1) {
+  CodePress.run();
+  }
+} );
+
+</script>
+
+<p class="cram east">
+  <input value="View Log" onclick="view_log()" type="button" class="button">
+</p>
+
+<h2>
+View Template
+</h2>
+
+<form name="return_form" action="<tmpl_var escape=html return_script default='template.pl'>" method="post">
+<tmpl_var history_return_params>
+<tmpl_if edit_uuid>
+  <input name="edit_uuid" value="<tmpl_var escape=html edit_uuid>" type="hidden">
+<tmpl_else>
+  <input name="template_id" value="<tmpl_var escape=html template_id>" type="hidden">
+</tmpl_if>
+<input name="retired" value="<tmpl_var escape=html retired>" type="hidden">
+
+<div class="table-container">
+<img src="<tmpl_var static_url>/images/corner-top-left.gif" class="left-corner">
+<img src="<tmpl_var static_url>/images/corner-top-right.gif" class="right-corner">
+<table cellspacing="0" class="props" summary="">
+
+<colgroup>
+<col class="c-label">
+<col>
+</colgroup>
+
+<thead>
+<tr>
+<th class="f">Properties</th>
+<th class="l"></th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td class="f">URL</td>
+<td class="l"><tmpl_var escape=html url></td>
+</tr>
+
+<tr>
+<td class="f">File Name</td>
+<td class="l"><tmpl_var escape=html filename></td>
+</tr>
+
+<tr>
+<td class="f">Template ID</td>
+<td class="l"><tmpl_var escape=html template_id></td>
+</tr>
+
+<tr>
+<td class="f">Current Version</td>
+<td class="l"><tmpl_var escape=html version></td>
+</tr>
+
+<tr>
+<td class="f">Deployed Version</td>
+<td class="l"><tmpl_unless deployed_version>[N/A]<tmpl_else><tmpl_var escape=html deployed_version></tmpl_unless></td>
+</tr>
+
+</tbody>
+
+</table>
+
+<h3>Content</h3>
+
+<p class="full">
+<textarea id="templateViewer" class="codepress html readonly-on" rows="30" cols="50"><tmpl_var escape=html content></textarea>
+</p>
+
+</div>
+<div class="panel<tmpl_if is_old_version> lame<tmpl_else><tmpl_unless can_edit> lame</tmpl_unless></tmpl_if> capped">
+<input value="&#9664; Back" onclick="do_return()" type="button" class="west">
+<tmpl_unless is_old_version><tmpl_if can_edit>
+  <input value="Edit" onclick="do_edit_template()" type="button" class="east">
+</tmpl_if></tmpl_unless>
+</div>
+
+</form>
+
+<tmpl_unless is_old_version><tmpl_if can_edit>
+  <form name="edit_template_form" method="post" action="template.pl">
+  <input name="rm" value="checkout_and_edit" type="hidden">
+  <input name="template_id" value="<tmpl_var escape=html template_id>" type="hidden">
+  </form>
+</tmpl_if></tmpl_unless>
+
+<form name="view_log_form" action="history.pl" method="post">
+<input name="class" value="Template" type="hidden">
+<input name="id" value="<tmpl_var escape=html template_id>" type="hidden">
+<input name="id_meth" value="template_id" type="hidden">
+<input name="history_return_script" value="template.pl" type="hidden">
+<input name="history_return_params" value="rm" type="hidden">
+<input name="history_return_params" value="view" type="hidden">
+<input name="history_return_params" value="template_id" type="hidden">
+<input name="history_return_params" value="<tmpl_var escape=html template_id>" type="hidden">
+<input name="history_return_params" value="version" type="hidden">
+<input name="history_return_params" value="<tmpl_var escape=html version>" type="hidden">
+<input name="history_return_params" value="return_script" type="hidden">
+<input name="history_return_params" value="<tmpl_var escape=html return_script>" type="hidden">
+<tmpl_loop return_params_loop>
+  <input name="history_return_params" value="return_params" type="hidden">
+  <input name="history_return_params" value="<tmpl_var escape=html name>" type="hidden">
+  <input name="history_return_params" value="return_params" type="hidden">
+  <input name="history_return_params" value="<tmpl_var escape=html value>" type="hidden">
+</tmpl_loop>
+</form>
+
+<tmpl_include footer.tmpl>
+

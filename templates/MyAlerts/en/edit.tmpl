@@ -1,0 +1,149 @@
+<tmpl_include header.tmpl>
+
+<script type="text/javascript">
+Krang.onload( function() {
+  Krang.Help.set( 'myalerts_edit' );
+  Krang.Form.toggle_list_btn('current_alert_form', 'alert_delete_list');
+} );
+
+  add = function()
+  {
+    var object_id = document.add_alert_form.object_id.value;
+    if (object_id != '' && (object_id == 0 || isNaN(object_id))) {
+       alert( Krang.L10N.loc('Object ID must either be empty or a (non-zero) number.') );
+    } else {
+       Krang.Form.submit( 'add_alert_form', {}, { to_top: false });
+    }
+  };
+
+<tmpl_if alert_loop>
+  delete_checked = function()
+  {
+    if ( !Krang.row_checked( 'current_alert_form', 'alert_delete_list' ) )
+      alert( Krang.L10N.loc('No Alerts selected to delete!') );
+    else if ( confirm( Krang.L10N.loc('Are you SURE you wish to delete these Alerts?') ) )
+      Krang.Form.submit( 'current_alert_form', {}, { to_top: false } );
+  };
+</tmpl_if>
+</script>
+
+<h2>
+Alerts
+</h2>
+
+<tmpl_unless alert_loop>
+
+  <p class="naught">
+  There are currently no Alerts.
+  </p>
+
+<tmpl_else>
+
+  <form name="current_alert_form" id="current_alert_form" method="post" action="my_alerts.pl">
+
+  <input name="rm" value="delete_alerts" type="hidden">
+
+  <div class="table-container">
+  <img src="<tmpl_var static_url>/images/corner-top-left.gif" class="left-corner">
+  <img src="<tmpl_var static_url>/images/corner-top-right.gif" class="right-corner">
+  <table cellspacing="0" class="result select_row" summary="">
+
+  <colgroup>
+  <col>
+  <col>
+  <col>
+  <col>
+  <col class="series">
+  </colgroup>
+
+  <thead>
+  <tr>
+  <th class="f">Action</th>
+  <th>Object</th>
+  <th>Site/Category</th>
+  <th>Desk</th>
+  <th class="series l"><input name="checkallbox" id="checkallbox" value="1" type="checkbox" onclick="Krang.check_all(this,'alert_delete_list')"></th>
+  </tr>
+  </thead>
+
+  <tbody><tmpl_loop alert_loop>
+    <tr<tmpl_unless __odd__> class="even"</tmpl_unless>>
+    <td class="f"><tmpl_var escape=html action></td>
+    <td><tmpl_unless object_type>Any<tmpl_else><tmpl_var escape=html object_type><tmpl_if object_id> #<tmpl_var object_id></tmpl_if></tmpl_unless></td>
+    <td><tmpl_if category><tmpl_var escape=html category><tmpl_else>Any</tmpl_if></td>
+    <td><tmpl_if desk><tmpl_var escape=html desk><tmpl_else>Any</tmpl_if></td>
+    <td class="series l"><input name="alert_delete_list" value="<tmpl_var escape=html alert_id>" type="checkbox" class="hilite-row"></td>
+    </tr>
+  </tmpl_loop></tbody>
+
+  <tr class="command-row">
+  <td class="f" colspan="4">&nbsp;</td>
+  <td class="series l"><input value="Delete" onclick="delete_checked()" type="button" class="mini-list-btn"></td
+  </tr>
+
+  </table></div>
+
+  </form>
+
+</tmpl_unless>
+
+<form name="add_alert_form" id="add_alert_form" method="post" action="my_alerts.pl">
+
+<input name="rm" value="add" type="hidden">
+
+<div class="table-container"<tmpl_if crumbs> style="margin-top:10px"</tmpl_if>>
+<img src="<tmpl_var static_url>/images/corner-top-left.gif" class="left-corner">
+<img src="<tmpl_var static_url>/images/corner-top-right.gif" class="right-corner">
+<table cellspacing="0" class="props" summary="">
+
+<colgroup>
+<col class="c-mini">
+<col>
+</colgroup>
+
+<thead>
+<tr>
+<th class="c-mini f l" colspan="2">Create a New Alert</th>
+</tr>
+</thead>
+
+<tbody class="half">
+
+<tr>
+<td class="f">Action</td>
+<td class="l"><tmpl_var action_selector></td>
+</tr>
+
+<tr>
+<td class="f">Object Type</td>
+<td class="l"><tmpl_var object_type_selector></td>
+</tr>
+
+<tr>
+<td class="f">Object ID</td>
+<td class="l"><tmpl_var object_id_selector></td>
+</tr>
+
+<tr>
+<td class="f">Site/Category</td>
+<td class="l"><tmpl_var category_chooser_interface></td>
+</tr>
+
+<tr>
+<td class="f">Desk</td>
+<td class="l"><tmpl_var desk_selector></td>
+</tr>
+
+</tbody>
+
+</table></div>
+
+<div class="panel lame capped">
+<input value="Add Alert" type="button" onclick="add()" class="west">
+</div>
+
+<tmpl_var category_chooser>
+</form>
+
+<tmpl_include footer.tmpl>
+

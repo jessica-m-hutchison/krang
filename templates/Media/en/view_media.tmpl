@@ -1,0 +1,284 @@
+<tmpl_include header.tmpl>
+
+
+<!-- BEGIN JAVASCRIPT -->
+
+<script type="text/javascript">
+Krang.onload( function() {
+  Krang.Help.set( 'media_view' );
+} );
+
+<tmpl_unless parent_path>
+do_return = function() {
+  Krang.Form.submit('return_form');
+};
+</tmpl_unless>
+
+view_log = function() {
+  Krang.Form.submit('view_log_form');
+};
+
+<tmpl_unless is_old_version><tmpl_if can_edit>
+  do_edit_media = function() {
+    Krang.Form.submit('edit_media_form');
+  };
+</tmpl_if></tmpl_unless>
+
+// Register CodePress's onload event:
+Krang.onload( function() { 
+  <tmpl_if is_text><tmpl_if use_codepress>CodePress.run()</tmpl_if></tmpl_if>
+} );
+
+</script>
+
+<!-- END JAVASCRIPT -->
+
+
+
+<!-- BEGIN MAIN VIEW FORM -->
+
+
+<span style="float: right">
+  <tmpl_if thumbnail_path>
+    <tmpl_if media_id><a href="" title="Preview <tmpl_var escape=html title>" class="media-preview-link" name="media_<tmpl_var media_id>"></tmpl_if><img alt="" src="<tmpl_var escape=html thumbnail_path>"><tmpl_if media_id></a></tmpl_if>
+  </tmpl_if>
+</span>
+
+<p class="cram east">
+  <tmpl_if is_root>
+    <input value="View Log" onclick="view_log()" type="button" class="button">
+  </tmpl_if>
+</p>
+
+<h2>
+View Media
+</h2>
+
+<form name="view_log_form" method="post" action="history.pl">
+<input name="rm" value="show" type="hidden">
+<input name="id" value="<tmpl_var escape=html media_id>" type="hidden">
+<input name="class" value="Media" type="hidden">
+<input name="id_meth" value="media_id" type="hidden">
+<input name="return_script" value="<tmpl_var escape=html return_script>" type="hidden">
+<input name="history_return_script" value="media.pl" type="hidden">
+<input name="history_return_params" value="rm" type="hidden">
+<input name="history_return_params" value="view" type="hidden">
+<input name="history_return_params" value="media_id" type="hidden">
+<input name="history_return_params" value="<tmpl_var escape=html media_id>" type="hidden">
+<input name="history_return_params" value="version" type="hidden">
+<input name="history_return_params" value="<tmpl_var escape=html version>" type="hidden">
+<input name="history_return_params" value="return_script" type="hidden">
+<input name="history_return_params" value="<tmpl_var escape=html return_script>" type="hidden">
+
+<tmpl_loop return_params_loop>
+  <input name="history_return_params" value="return_params" type="hidden">
+  <input name="history_return_params" value="<tmpl_var escape=html name>" type="hidden">
+  <input name="history_return_params" value="return_params" type="hidden">
+  <input name="history_return_params" value="<tmpl_var escape=html value>" type="hidden">
+</tmpl_loop>
+
+<!-- BEGIN BASIC PROPERTIES -->
+
+<div class="table-container">
+  <img src="<tmpl_var static_url>/images/corner-top-left.gif" class="left-corner">
+  <img src="<tmpl_var static_url>/images/corner-top-right.gif" class="right-corner">
+  <table cellspacing="0" class="props" summary="">
+
+  <colgroup>
+   <col class="c-label">
+   <col>
+  </colgroup>
+
+  <thead>
+    <tr>
+    <th class="f l">Properties</th>
+    <td style="text-align: right; vertical-align: middle">
+        Media ID <tmpl_var media_id>, 
+        Created <tmpl_var escape=html creation_date>&nbsp;
+    </td>
+    </tr>
+  </thead>
+
+  <tbody class="half">
+  
+  <tr>
+  <td class="f">URL</td>
+  <td class="l"><tmpl_var url></td>
+  </tr>
+
+<tmpl_if is_root>
+
+  <tr class="even">
+  <th class="f">Type</th>
+  <td class="l"><tmpl_var escape=html type></td>
+  </tr>
+
+  <tr>
+  <th class="f">Tags</th>
+  <td class="l"><tmpl_var escape=html tags></td>
+  </tr>
+
+  <tr class="even">
+  <th class="f">Title</th>
+  <td class="l"><tmpl_var escape=html title></td>
+  </tr>
+
+  <tr>
+  <th class="f">File Name</th>
+  <td class="l">
+    <a href="" class="media-preview-link" name="media_<tmpl_var escape=html media_id>"><tmpl_var escape=html filename></a>
+    <tmpl_if file_size>(<tmpl_var escape=html file_size>)</tmpl_if>
+  </td>
+  </tr>
+
+  <tr class="even">
+  <th class="f">Current Version</th>
+  <td class="l"><tmpl_var escape=html version>&nbsp;&nbsp;
+                (Published Version: <tmpl_if published_version><tmpl_var published_version><tmpl_else>None</tmpl_if>)
+  </td>
+  </tr>
+
+</tmpl_if>
+
+</tbody>
+</table>
+</div>
+
+<!-- END BASIC PROPERTIES -->
+
+
+
+<!-- BEGIN METADATA -->
+<tmpl_if is_root>
+
+<div class="table-container">
+<img src="<tmpl_var static_url>/images/corner-top-left.gif" class="left-corner">
+<img src="<tmpl_var static_url>/images/corner-top-right.gif" class="right-corner">
+<table cellspacing="0" class="props" summary="">
+
+<colgroup>
+ <col class="c-label">
+ <col>
+</colgroup>
+
+<thead>
+  <tr>
+  <th class="f l" colspan="2">Metadata</th>
+  </tr>
+</thead>
+
+<tbody class="half">
+
+<tr>
+<td class="f">Site/Category</td>
+<td class="l"><tmpl_var escape=html category></td>
+</tr>
+
+<tr class="even">
+<td class="f">File Name</td>
+<td class="l">
+<a href="" class="media-preview-link" name="media_<tmpl_var escape=html media_id>"><tmpl_var escape=html filename></a>
+<tmpl_if file_size>(<tmpl_var escape=html file_size>)</tmpl_if>
+</td>
+</tr>
+
+<tr>
+<td class="f">Default Caption</td>
+<td class="l"><tmpl_var escape=html caption></td>
+</tr>
+
+<tr class="even">
+<td class="f">Default Copyright</td>
+<td class="l"><tmpl_var escape=html copyright></td>
+</tr>
+
+<tr>
+<td class="f">Alt Text</td>
+<td class="l"><tmpl_var escape=html alt_tag></td>
+</tr>
+
+<tr class="even">
+<td class="f">Notes</td>
+<td class="l"><tmpl_var escape=html notes></td>
+</tr>
+
+<tr>
+<td class="f">Contributors</td>
+<td class="l">
+<tmpl_if contribs><!--(db2)no context var; single item == trailing comma:-->
+  <tmpl_loop contribs>
+    <tmpl_var escape=html first> <tmpl_var escape=html last> (<tmpl_var escape=html type>)<tmpl_unless __last__>,</tmpl_unless>
+  </tmpl_loop>
+<tmpl_else>
+  None.
+</tmpl_if>
+</td>
+</tr>
+
+</tbody>
+</table>
+</div>
+</tmpl_if>
+<!-- END METADATA -->
+
+
+<!-- BEGIN TEXT CONTENT -->
+
+<tmpl_if is_text><tmpl_if is_root>
+<div class="table-container">
+<img src="<tmpl_var static_url>/images/corner-top-left.gif" class="left-corner">
+<img src="<tmpl_var static_url>/images/corner-top-right.gif" class="right-corner">
+<table cellspacing="0" class="props" summary="" style="margin: 0; padding: 0; border: 0">
+<thead>
+<tr>
+<th class="f l">Content</th>
+</tr>
+</thead>
+</table>
+<textarea style="width: 100%" name="text_content" id="mediaEditor" rows="30" cols="60"
+  <tmpl_if use_codepress>class="codepress readonly-on <tmpl_var text_type>"</tmpl_if>>
+  <tmpl_var escape=html text_content>
+</textarea>
+</div>
+</tmpl_if></tmpl_if>
+
+<!-- BEGIN ELEMENTS -->
+<tmpl_include /ElementEditor/en/view.tmpl>
+<!-- END ELEMENTS -->
+
+
+
+<!-- BEGIN BUTTONS -->
+
+<div class="panel<tmpl_if is_old_version> lame<tmpl_else><tmpl_if prevent_edit> lame</tmpl_if></tmpl_if> capped">
+<input value="&#9664; Back" onclick="<tmpl_if parent_path>view_path('<tmpl_var escape=html parent_path>')<tmpl_else>do_return()</tmpl_if>" type="button" class="west">
+<tmpl_unless is_old_version><tmpl_if can_edit>
+  <input value="Edit" onclick="do_edit_media()" type="button">
+</tmpl_if></tmpl_unless>
+</div>
+
+<!-- END BUTTONS -->
+
+
+</form>
+
+<!-- END MAIN VIEW FORM -->
+
+
+
+<form name="return_form" action="<tmpl_var escape=html return_script>" method="post">
+<tmpl_loop return_params_loop>
+  <input name="<tmpl_var escape=html name>" value="<tmpl_var escape=html value>" type="hidden">
+</tmpl_loop>
+</form>
+
+<tmpl_unless is_old_version><tmpl_if can_edit>
+  <form name="edit_media_form" method="post" action="media.pl">
+  <input name="rm" value="checkout_and_edit" type="hidden">
+  <input name="media_id" value="<tmpl_var escape=html media_id>" type="hidden">
+  </form>
+</tmpl_if></tmpl_unless>
+
+
+<tmpl_include footer.tmpl>
+
