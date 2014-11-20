@@ -7,3 +7,5 @@ addons/
 apache/
 data/
 data
+conf/krang.conf
+
