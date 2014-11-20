@@ -95,7 +95,7 @@ sub new {
         $arg{filename} =~ s/(.*?)(?<!css)\.tmpl/$1.base.tmpl/;
         $arg{filter} = sub {
             my $text_ref = shift;
-            $$text_ref =~ s/<TMPL_LANG\s*?(.*?)>/$1/g;
+            $$text_ref =~ s/<TMPL_LANG\s*?(.*?)>/$1/gi;
         };
     }
 
