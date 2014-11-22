@@ -9,7 +9,7 @@ Krang.onload( function() {
 schedule_action = function()
 { 
   Krang.Form.submit('add_schedule_form');
-};
+}
 
 save_and_view = function()
 {
@@ -18,7 +18,7 @@ save_and_view = function()
   } else {
     Krang.Form.submit('add_schedule_form', { rm: 'save_and_view' });
   }
-};
+}
 
 <tmpl_if existing_schedule_loop>
   delete_selected = function()
@@ -27,13 +27,13 @@ save_and_view = function()
       alert( Krang.L10N.loc('Nothing selected to delete!') );
     else if ( confirm( Krang.L10N.loc('Are you SURE you want to delete the selected Actions from the Schedule?') ) )
       Krang.Form.submit('current_schedule_form');
-  };
+  }
 </tmpl_if>
 
 do_return = function()
 {
   Krang.Form.submit('return_form');
-};
+}
 </script>
 
 <h2>

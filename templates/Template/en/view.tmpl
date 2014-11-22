@@ -8,18 +8,18 @@ Krang.onload( function() {
 view_log = function()
 {
   Krang.Form.submit( 'view_log_form' );
-};
+}
 
 do_return = function()
 {
   Krang.Form.submit( 'return_form' );
-};
+}
 
 <tmpl_unless is_old_version><tmpl_if can_edit>
   do_edit_template = function()
   {
     Krang.Form.submit( 'edit_template_form' );
-  };
+  }
 </tmpl_if></tmpl_unless>
 
 // Register CodePress's onload event:

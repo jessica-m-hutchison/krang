@@ -9,13 +9,13 @@ Krang.onload( function() {
 create = function()
 {
   Krang.Form.submit( 'new_story', { rm: 'create' } );
-};
+}
 
 cancel_create = function()
 {
   if (confirm(Krang.L10N.loc("Discard new Story?")))
     Krang.Form.submit( 'new_story', { rm: 'cancel_create' } );
-};
+}
 
 
 // begin slug-related javascript
@@ -27,7 +27,7 @@ cancel_create = function()
 manual_slug = function() // returns user-modified slug
 {
    return document.new_story.manual_slug.value;
-};
+}
 
 auto_slug = function() // returns slug built from title
 { 
@@ -45,7 +45,7 @@ auto_slug = function() // returns slug built from title
      // this story-type needs the default conversion function
      return (Krang.Slug.title_to_slug(title));
    }
-};
+}
 
 enable_slug_input = function() 
 {
@@ -53,7 +53,7 @@ enable_slug_input = function()
   document.new_story.slug.value             = manual_slug() || auto_slug();
   document.new_story.slug.disabled          = false;
   document.getElementById('slug').className = ""; 
-};
+}
 
 grey_out_slug_input = function() 
 {
@@ -61,7 +61,7 @@ grey_out_slug_input = function()
   document.new_story.slug.value             = '';
   document.new_story.slug.disabled          = true;
   document.getElementById('slug').className = "disabled"; 
-};
+}
 
 show_slug_and_cat_by_type = function() {
 
@@ -117,19 +117,19 @@ show_slug_and_cat_by_type = function() {
      document.getElementById('slug_row').style.display = '';
   }
 
-};
+}
 
 usr_toggled_cat_idx = function() {
   document.new_story.usr_checked_cat_idx.value   = document.new_story.cat_idx.checked ? 1 : 0;
   document.new_story.usr_unchecked_cat_idx.value = document.new_story.cat_idx.checked ? 0 : 1;
   document.new_story.cat_idx.checked ? grey_out_slug_input() : enable_slug_input();
-};
+}
 
 usr_changed_title = function() {
   if (!manual_slug() && !document.new_story.cat_idx.checked) {
 	document.new_story.slug.value = auto_slug();
   }
-};
+}
 
 usr_changed_slug = function(new_value) {
   if (manual_slug() && (document.new_story.slug.value == '')) {
@@ -138,7 +138,7 @@ usr_changed_slug = function(new_value) {
   } else {
         document.new_story.manual_slug.value = document.new_story.slug.value;
   }
-};
+}
 
 // end slug-generation javascript
 

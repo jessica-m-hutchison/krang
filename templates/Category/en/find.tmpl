@@ -9,18 +9,18 @@ Krang.onload( function() {
 add_category = function()
 {
   Krang.Form.submit( 'add_category_form' );
-};
+}
 
 <tmpl_if row_count>
   edit_category = function( id )
   {
     Krang.Form.submit( 'edit_category_form', { category_id: id } );
-  };
+  }
 
   copy_category = function( id )
   { 
     Krang.Form.submit( 'copy_category_form', { rm: 'prepare_copy', src_category_id: id } );
-  };
+  }
 
   delete_selected = function()
   {
@@ -28,7 +28,7 @@ add_category = function()
       alert( Krang.L10N.loc('Nothing selected to delete!') );
     else if ( confirm( Krang.L10N.loc('Are you SURE you want to delete these Categories?') ) )
       Krang.Form.submit( 'krang_pager_form', { rm: 'delete_selected' }, { to_top: false } );
-  };
+  }
 </tmpl_if>
 </script>
 

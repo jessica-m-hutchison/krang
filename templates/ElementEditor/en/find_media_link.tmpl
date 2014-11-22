@@ -8,23 +8,23 @@ Krang.onload( function() {
 
 simple_search = function() {
     Krang.Form.submit('select_media_form', { advanced: 0 }, { to_top: false });
-};
+}
 
 clear_advanced_search = function() {
     Krang.Form.submit('clear_advanced_search_form', {}, { to_top: false });
-};
+}
 
 advanced_search = function() {
     Krang.Form.submit('select_media_form', { advanced: 1 }, { to_top: false });
-};
+}
 
 select_media = function( id ) {
     Krang.Form.submit('select_media_form', { rm: 'select_media', selected_media_id: id });
-};
+}
 
 cancel_select = function() {
     Krang.Form.submit('select_media_form', { rm: 'edit', path: '<tmpl_var escape=js parent_path>' });
-};
+}
 </script>
 
 <h2>

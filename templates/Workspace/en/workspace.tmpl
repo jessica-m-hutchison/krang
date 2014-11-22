@@ -10,17 +10,17 @@ Krang.onload( function() {
   log = function( id ) 
   {
     Krang.Form.submit('krang_pager_form', { rm: 'goto_log', id: id });
-  };
+  }
 
   edit = function( id )
   {
     Krang.Form.submit('krang_pager_form', { rm: 'goto_edit', id: id });
-  };
+  }
 
   details = function( id )
   {
     Krang.Form.submit('krang_pager_form', { rm: 'goto_details', id: id });
-  };
+  }
 
   link_toggle_checkbox = function( nameForm, nameCheckbox, id )
   {
@@ -29,39 +29,39 @@ Krang.onload( function() {
     CBOX.checked = !CBOX.checked;
 
     update_testing( id );
-  };
+  }
 
   update_testing = function( id )
   {
     Krang.Form.submit( 'krang_pager_form', { rm: 'update_testing', id : id }, { to_top : false } );
-  };
+  }
 
   checkin = function( id, desk )
   {
     var data = { rm: 'checkin', id: id };
     data['desk_id'] = desk;
     Krang.Form.submit('krang_pager_form', data, {to_top: false});
-  };
+  }
 
   copy = function( id )
   {
     Krang.Form.submit('krang_pager_form', { rm: 'copy', id: id });
-  };
+  }
 
   deploy = function( id )
   {
     Krang.Form.submit('krang_pager_form', { rm: 'deploy', id: id });
-  };
+  }
 
   publish_media = function( id )
   {
     Krang.Form.submit('publish_media_form', { media_id: id });
-  };
+  }
 
   publish_story = function( id )
   {
     Krang.Form.submit('publish_story_form', { story_id: id });
-  };
+  }
 
   <tmpl_if may_publish>
     publish_checked = function()
@@ -76,7 +76,7 @@ Krang.onload( function() {
           Krang.Form.submit( 'krang_pager_form', { rm : 'publish_story_list' } );
         }
       }
-    };
+    }
   </tmpl_if>
 
   checkin_checked = function(desk_id)
@@ -85,7 +85,7 @@ Krang.onload( function() {
       alert( Krang.L10N.loc('Nothing selected to check in!') );
     else
       Krang.Form.submit( 'krang_pager_form', { rm : 'checkin_checked', desk_id: desk_id }, { to_top : false } );
-  };
+  }
 
   delete_checked = function()
   {
@@ -93,7 +93,7 @@ Krang.onload( function() {
       alert( Krang.L10N.loc('Nothing selected to delete!') );
     else if ( confirm( Krang.L10N.loc('Are you SURE you want to delete these items?') ) )
       Krang.Form.submit( 'krang_pager_form', { rm : 'delete_checked' }, { to_top : false } );
-  };
+  }
 </tmpl_if>
 </script>
 

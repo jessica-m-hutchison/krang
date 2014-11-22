@@ -8,11 +8,11 @@ Krang.onload( function() {
 
 add_template = function() {
     Krang.Form.submit('template_search_form', { rm: 'add'});
-};
+}
 
 show_advanced_search = function(show_advanced) {
     Krang.Form.submit('template_search_form', { do_advanced_search: show_advanced }, { to_top: false });
-};
+}
 
 other_search_rm = function() {
   Krang.Form.submit('template_search_form', {
@@ -20,55 +20,55 @@ other_search_rm = function() {
     other_search_place: 'Search in Live',
     krang_pager_curr_page_num: '1'
   });
-};
+}
 
 <tmpl_if do_advanced_search>
 clear_advanced_search = function() {
     Krang.Form.submit('clear_advanced_search_form', {}, { to_top: false });
-};
+}
 </tmpl_if>
 
 <tmpl_if row_count>
 edit_template = function(id) {
     Krang.Form.submit('find_template', { rm: 'checkout_and_edit', template_id: id });
-};
+}
 
 view_template = function(id) {
     Krang.Form.submit('find_template', { rm: 'view', template_id: id });
-};
+}
 
 delete_selected = function() {
     if ( !Krang.pager_row_checked() )
         alert(Krang.L10N.loc('Nothing selected to delete!'));
     else if ( confirm(Krang.L10N.loc('Are you SURE you want to delete the checked Templates?')) )
         Krang.Form.submit('krang_pager_form', { rm: 'delete_selected' }, { to_top: false });
-};
+}
 
 retire_selected = function() {
     if ( !Krang.pager_row_checked() )
         alert(Krang.L10N.loc('Nothing selected to retire!'));
     else if ( confirm(Krang.L10N.loc('Are you SURE you want to retire the checked Templates?')) )
         Krang.Form.submit('krang_pager_form', { rm: 'retire_selected' }, { to_top: false });
-};
+}
 
 checkout_selected = function() {
     if ( !Krang.pager_row_checked() )
         alert( Krang.L10N.loc('Nothing selected to check out!') );
     else
         Krang.Form.submit('krang_pager_form', { rm: 'checkout_selected' });
-};
+}
 
 do_deploy = function() {
     if ( !Krang.pager_row_checked() )
         alert( Krang.L10N.loc('Nothing selected to deploy!') );
     else if ( confirm( Krang.L10N.loc('Are you SURE you want to deploy the checked Templates?') ) )
         Krang.Form.submit('krang_pager_form', { rm: 'deploy_selected' }, { to_top: false });
-};
+}
 
 retire_template = function(id) {
     if ( confirm('Are you SURE you want to retire this Template?') )
         Krang.Form.submit('find_template', { rm: 'retire', template_id: id });
-};
+}
 </tmpl_if>
 </script>
 

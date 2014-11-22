@@ -8,7 +8,7 @@ save_editor_text = function() {
         Krang.Form.set('edit_template_form', { content: templateEditor.getCode() });
         Krang.Form.get_field('edit_template_form', 'content').disabled = false;
     }
-};
+}
 
 // not sure why, but if the form element isn't disabled, then CodePress won't get
 // the new value for the content, but will just return the old one (the one
@@ -22,7 +22,7 @@ reset_editor = function() {
             }
         }
     }
-};
+}
 
 Krang.onload( function() {
   Krang.Nav.edit_mode();
@@ -47,7 +47,7 @@ do_save_stay = function() {
           }
       }
   );
-};
+}
 
 do_add_save_stay = function() {
   save_editor_text();
@@ -56,7 +56,7 @@ do_add_save_stay = function() {
     { rm: 'add_save_stay' }, 
     { onComplete : function() { reset_editor() } }
   );
-};
+}
 
 do_save = function() {
   save_editor_text();
@@ -65,7 +65,7 @@ do_save = function() {
     { rm: '<tmpl_if add_mode>add<tmpl_else>edit</tmpl_if>_save' },
     { onComplete : function() { reset_editor() } }
   );
-};
+}
 
 do_deploy = function() {
   save_editor_text();
@@ -74,7 +74,7 @@ do_deploy = function() {
     { rm: 'deploy' },
     { onComplete : function() { reset_editor() } }
   );
-};
+}
 
 save_and_view_log = function() {
   save_editor_text();
@@ -83,7 +83,7 @@ save_and_view_log = function() {
     { rm: 'save_and_view_log' },
     { onComplete : function() { reset_editor() } }
   );
-};
+}
 
 <tmpl_if add_mode>
   update_filename = function(el) {
@@ -93,13 +93,13 @@ save_and_view_log = function() {
     elFile.value                 = isNil ? ''     : el.value + '.tmpl';
     elFile.style.backgroundColor = isNil ? '#FFF' : '#DDD';
     elFile.readOnly              = !isNil;
-  };
+  }
 
   do_cancel_add = function() {
     if (confirm(Krang.L10N.loc("Discard new Template?"))) {
       Krang.Form.submit( 'edit_template_form', { rm: 'search' });
     }
-  };
+  }
 <tmpl_else>
   do_cancel_edit = function() {
     if (confirm(<tmpl_if cancel_goes_to_workspace>Krang.L10N.loc("Discard any unsaved changes and go to Workspace?")
@@ -108,7 +108,7 @@ save_and_view_log = function() {
                 </tmpl_if></tmpl_if>)) {
        Krang.Form.submit( 'edit_template_form', {rm: 'cancel_edit'});
     }
-  };
+  }
   revert_version = function() {
     var f = document.forms['edit_template_form'];
     var v = f.selected_version.options[f.selected_version.selectedIndex].value;
@@ -118,7 +118,7 @@ save_and_view_log = function() {
     } else if ( confirm( Krang.L10N.loc('Are you SURE you want to discard any unsaved changes and revert to this old version?') ) ) {
       Krang.Form.submit('edit_template_form', { rm: 'revert_version' });
     }
-  };
+  }
 
   view_version = function() {
     var f = document.forms['edit_template_form'];
@@ -135,12 +135,12 @@ save_and_view_log = function() {
       { rm: 'view_version' },
       { onComplete : function() { reset_editor() } }
     );
-  };
+  }
 
   do_delete = function() {
     if ( confirm( Krang.L10N.loc('Are you SURE you want to delete this Template?') ) )
       Krang.Form.submit( 'delete_template_form'<tmpl_if add_mode>, { rm : 'add_cancel' }</tmpl_if> );
-  };
+  }
 </tmpl_if>
 
 // Register CodePress's onload event:

@@ -9,25 +9,25 @@ Krang.onload( function() {
 <tmpl_if krang_pager_rows>
 log = function(id) {
     Krang.Form.submit('krang_pager_form', { rm: 'goto_log', id: id });
-};
+}
 
 view = function(id) {
     Krang.Form.submit('krang_pager_form', { rm: 'goto_view', id: id });
-};
+}
 
 edit = function(id) {
     Krang.Form.submit('krang_pager_form', { rm: 'goto_edit', id: id });
-};
+}
 
 publish_story = function(id) {
     Krang.Form.submit('publish_story_form', { story_id: id });
-};
+}
 
 move = function(id, desk) {
     var data = { rm: 'move', id: id };
     data['move_' + id] = desk;
     Krang.Form.submit('krang_pager_form', data, { to_top: false });
-};
+}
 
 <tmpl_if may_publish>
 publish_checked = function() {
@@ -37,7 +37,7 @@ publish_checked = function() {
         document.forms['krang_pager_form'].action = 'publisher.pl';
         Krang.Form.submit('krang_pager_form', { rm: 'publish_story_list' });
     }
-};
+}
 </tmpl_if>
 
 checkout_checked = function() {
@@ -45,7 +45,7 @@ checkout_checked = function() {
         alert(Krang.L10N.loc('Nothing selected to check out!'));
     else
         Krang.Form.submit('krang_pager_form', { rm: 'checkout_checked' });
-};
+}
 
 move_checked = function(desk_id) {
     if (!Krang.pager_row_checked()) {
@@ -61,7 +61,7 @@ move_checked = function(desk_id) {
         );
         Krang.Form.submit('krang_pager_form', { rm: 'move_checked', move_to_desk_id: desk_id }, { to_top: false });
     }
-};
+}
 </tmpl_if>
 </script>
 

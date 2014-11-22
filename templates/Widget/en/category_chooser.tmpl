@@ -25,7 +25,7 @@
   myField.value = id;
 
   <tmpl_if onchange><tmpl_var onchange>();</tmpl_if>
-};
+}
 
 <tmpl_if allow_clear>
   <tmpl_var name>_clear_category = function()
@@ -37,7 +37,7 @@
 
     var myField   = document.getElementById( '<tmpl_if formname><tmpl_var escape=js formname>.</tmpl_if><tmpl_var escape=js field>' );
     myField.value = '';
-  };
+  }
 </tmpl_if>
 </script>
 

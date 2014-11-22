@@ -9,25 +9,25 @@ Krang.onload( function() {
 do_save = function()
 {
   Krang.Form.submit('edit_group_form', { rm: 'save' });
-};
+}
 
 cancel_group_change = function()
 {
   Krang.Form.submit('edit_group_form', { rm: 'cancel' });
-};
+}
 
 <tmpl_if categories>
   edit_categories = function( id )
   {
     Krang.Form.submit('edit_group_form', { rm: 'save_and_edit_categories', category_id: id });
-  };
+  }
 </tmpl_if>
 
 <tmpl_unless associate_mode>
   save_stay = function()
   {
     Krang.Form.submit('edit_group_form', { rm: 'save_stay' }, { to_top: false });
-  };
+  }
 </tmpl_unless>
 
 <tmpl_unless add_mode>
@@ -35,7 +35,7 @@ cancel_group_change = function()
   {
     if ( confirm( Krang.L10N.loc('Are you SURE you want to delete this Group?') ) )
       Krang.Form.submit('edit_group_form', { rm: 'delete' });
-  };
+  }
 </tmpl_unless>
 </script>
 

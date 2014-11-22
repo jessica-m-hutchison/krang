@@ -54,13 +54,13 @@ populate_list = function( list_count, sel_in_list, no_clear )
 
   if ( sel_in_list > -1 )
     document.forms[ 'edit_form' ][ 'list_' + next_list ].selectedIndex = sel_in_list;
-};
+}
 
 clear_lists_above = function( list_count )
 {
   for ( var c = list_count; c <= <tmpl_var escape=html list_levels>; c++ )
     document.forms[ 'edit_form' ][ 'list_' + c ].options.length = 0;
-};
+}
 
 get_selected_val = function( list_count )
 {
@@ -70,12 +70,12 @@ get_selected_val = function( list_count )
     return document.forms[ 'edit_form' ][ 'list_' + list_count ].options[ sindex ].value;
   else
     return( 'undef' );
-};
+}
 
 get_list_id = function( list_count )
 {
   return document.forms[ 'edit_form' ][ 'list_id_' + list_count ].value;
-};
+}
 
 do_delete = function( list_count )
 {
@@ -94,7 +94,7 @@ do_delete = function( list_count )
     eval( 'list_data[' + select_val + ']' ).splice( current_index, 1 );
 
   populate_list( list_count - 1 );
-};
+}
 
 do_replace = function( list_count )
 {
@@ -114,7 +114,7 @@ do_replace = function( list_count )
     document.forms[ 'edit_form' ][ 'new_item_' + list_count ].value = '';
     log_entry( item[ '__id__' ], 'replace', nv );
   }
-};
+}
 
 do_move = function( list_count, down )
 {
@@ -175,7 +175,7 @@ do_move = function( list_count, down )
 
     populate_list( ( list_count - 1 ), current_index, 1 );
   }
-};
+}
 
 do_add = function( list_count )
 {
@@ -302,28 +302,28 @@ do_add = function( list_count )
   document.forms[ 'edit_form' ][ 'new_item_' + list_count ].value = '';
 
   populate_list( list_count - 1, current_index );
-};
+}
 
 log_entry = function( item_id, action, data )
 {
   var entry = ( item_id + '#&#' + action + '#&#' + data );
   change_log.push( entry );
-};
+}
 
 do_cancel = function()
 {
   Krang.Form.submit('edit_form', { rm: 'search' });
-};
+}
 
 do_save = function()
 {
   Krang.Form.set('edit_form', { rm: 'save', changes: change_log.join( '%^%' ) });
-};
+}
 
 do_save_stay = function()
 {
   Krang.Form.submit('edit_form', { rm: 'save', changes: change_log.join( '%^%' ), stay:  1 }, { to_top: false });
-};
+}
 </script>
 
 <h2>

@@ -9,13 +9,13 @@ Krang.onload( function() {
 add_contrib = function()
 {
   Krang.Form.submit('add_contrib_form');
-};
+}
 
 <tmpl_if row_count>
   edit_contrib = function( id )
   {
     Krang.Form.submit('edit_contrib_form', { contrib_id: id });
-  };
+  }
 
   delete_selected = function()
   {
@@ -23,7 +23,7 @@ add_contrib = function()
       alert( Krang.L10N.loc('Nothing selected to delete!') );
     else if ( confirm( Krang.L10N.loc("Are you SURE you want to delete these Contributors?\n\nIf any Stories or Media are associated with these Contributors the association will be removed.") ) )
       Krang.Form.submit('krang_pager_form', { rm: 'delete_selected' }, { to_top: false });
-  };
+  }
 </tmpl_if>
 </script>
 

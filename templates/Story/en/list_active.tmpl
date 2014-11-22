@@ -10,12 +10,12 @@ Krang.onload( function() {
   view_story = function( id )
   {
     Krang.Form.submit( 'find_story', { rm: 'view', story_id: id } );
-  };
+  }
 
   view_story_log = function( id )
   {
     Krang.Form.submit( 'view_story_log_form', { id: id } );
-  };
+  }
 
   <tmpl_if may_checkin_all>
     steal_selected = function()
@@ -24,7 +24,7 @@ Krang.onload( function() {
         alert( Krang.L10N.loc('Nothing selected to steal!') );
       else
         Krang.Form.submit( 'krang_pager_form', { rm: 'steal_selected' }, { to_top: false } );
-    };
+    }
 
     checkin_selected = function()
     {
@@ -32,7 +32,7 @@ Krang.onload( function() {
         alert( Krang.L10N.loc('Nothing selected to check in!') );
       else
         Krang.Form.submit( 'krang_pager_form', { rm: 'checkin_selected' }, { to_top: false } );
-    };
+    }
   </tmpl_if>
 </tmpl_if>
 </script>

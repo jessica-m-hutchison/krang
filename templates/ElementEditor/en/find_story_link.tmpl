@@ -10,17 +10,17 @@ Krang.onload( function() {
   simple_search = function()
   {
     Krang.Form.submit('select_story_form', { advanced: 0 }, { to_top: false });
-  };
+  }
 
   clear_advanced_search = function()
   {
     Krang.Form.submit('clear_advanced_search_form', {}, { to_top: false });
-  };
+  }
 <tmpl_else>
   advanced_search = function()
   {
     Krang.Form.submit('select_story_form', { advanced: 1 }, { to_top: false });
-  };
+  }
 </tmpl_if>
 
 <tmpl_if row_count>
@@ -33,7 +33,7 @@ Krang.onload( function() {
             }}
        </tmpl_if>
     );
-  };
+  }
 </tmpl_if>
 
 cancel_select = function()
@@ -45,7 +45,7 @@ cancel_select = function()
          }}
    </tmpl_if>
   );
-};
+}
 </script>
 
 <h2>

@@ -11,7 +11,7 @@
       return;
     Krang.ElementEditor.run_save_hooks();
     Krang.Form.submit('edit', { rm: 'save_and_jump', jump_to: p });
-  };
+  }
 </tmpl_if>
 
 <tmpl_if bulk_edit>
@@ -20,7 +20,7 @@
   save_and_change_bulk_edit_sep = function() {
       Krang.ElementEditor.run_save_hooks();
       Krang.Form.submit('edit', { rm: 'save_and_change_bulk_edit_sep' });
-  };
+  }
 
   update_bulk_edit_counts = function() {
       var words_span = $('bulk_edit_words');
@@ -46,7 +46,7 @@
           // update the count again in 1 sec
           setTimeout(update_bulk_edit_counts, 1000 + ( text.length / 10 ));
       }
-  };
+  }
 </tmpl_if>
 
 <tmpl_if is_bulk_edit_xinha>
@@ -104,7 +104,7 @@
       xinha_editors["bulk_data"].config.formatblock = { <tmpl_var formatblock> };
         </tmpl_if>
       HTMLArea.startEditors(xinha_editors);
-  };
+  }
 
   Krang.onload(xinha_init);
 </tmpl_if>
@@ -117,7 +117,7 @@
       return;
     Krang.ElementEditor.run_save_hooks();
     Krang.Form.submit('edit', { rm: 'save_and_find_media_link', jump_to: p });
-  };
+  }
 
   find_story_link = function(p) {
     // don't resubmit if we are in the middle of a submission
@@ -125,7 +125,7 @@
       return;
     Krang.ElementEditor.run_save_hooks();
     Krang.Form.submit('edit', { rm: 'save_and_find_story_link', jump_to: p });
-  };
+  }
 
   save_and_add = function() {
     // don't resubmit if we are in the middle of a submission
@@ -133,7 +133,7 @@
       return;
     Krang.ElementEditor.run_save_hooks();
     Krang.Form.submit('edit', { rm: 'save_and_add' });
-  };
+  }
 
   save_and_jump = function() {
     // don't resubmit if we are in the middle of a submission
@@ -141,7 +141,7 @@
       return;
     Krang.ElementEditor.run_save_hooks();
     Krang.Form.submit('edit', { rm: 'save_and_jump' });
-  };
+  }
 
   edit_children = function( p ) {
     // don't resubmit if we are in the middle of a submission
@@ -149,7 +149,7 @@
       return;
     Krang.ElementEditor.run_save_hooks();
     Krang.Form.submit('edit', { rm: 'save_and_jump', jump_to: p });
-  };
+  }
 
   <tmpl_if bulk_edit_select>
     save_and_bulk_edit = function() {
@@ -158,7 +158,7 @@
         return;
       Krang.ElementEditor.run_save_hooks();
       Krang.Form.submit('edit', { rm: 'save_and_bulk_edit' });
-    };
+    }
   </tmpl_if>
 
   remove_children = function() {
@@ -170,7 +170,7 @@
       Krang.ElementEditor.run_save_hooks();
       Krang.Form.submit('edit', { rm: 'delete_children' }, { to_top: false });
     }
-  };
+  }
 
   <tmpl_if child_select>
     var containers = new Array();
@@ -197,7 +197,7 @@
 
       Krang.ElementEditor.run_save_hooks();
       Krang.Form.submit('edit', { rm : rm }, { to_top : to_top });
-    };
+    }
   </tmpl_if>
 
   <tmpl_unless no_reorder>
@@ -208,7 +208,7 @@
 
       Krang.ElementEditor.run_save_hooks();
       Krang.Form.submit('edit', { rm: 'reorder' }, { to_top: false });
-    };
+    }
   </tmpl_unless>
 </tmpl_if>
 </script>

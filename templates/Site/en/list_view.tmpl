@@ -9,18 +9,18 @@ Krang.onload( function() {
 add_site = function()
 {
   Krang.Form.submit( 'add_site_form' );
-};
+}
 
 <tmpl_if row_count>
   edit_site = function( id )
   {
     Krang.Form.submit( 'edit_site_form', { site_id: id } );
-  };
+  }
 
   view_site = function( id )
   {
     Krang.Form.submit( 'find_site', { rm: 'view', site_id: id } );
-  };
+  }
 
   delete_selected = function()
   {
@@ -28,7 +28,7 @@ add_site = function()
       alert( Krang.L10N.loc('Nothing selected to delete!') );
     else if ( confirm( Krang.L10N.loc('Are you SURE you want to delete these Sites?') ) )
       Krang.Form.submit( 'krang_pager_form', { rm: 'delete_selected' }, { to_top: false } );
-  };
+  }
 </tmpl_if>
 </script>
 

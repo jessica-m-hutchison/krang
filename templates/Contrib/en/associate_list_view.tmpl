@@ -11,13 +11,13 @@ Krang.onload( function() {
 add_contrib = function()
 {
   Krang.Form.submit('add_contrib_form', {}, { to_top: false });
-};
+}
 
 <tmpl_if associated_contributors>
   reorder_contributors = function()
   {
     Krang.Form.submit('current_contributors_form', { rm: 'reorder_contribs' }, { to_top: false });
-  };
+  }
 
   unassociate_selected = function()
   {
@@ -26,7 +26,7 @@ add_contrib = function()
       alert( Krang.L10N.loc('Nothing selected to unassociate!') );
     else
       Krang.Form.submit('current_contributors_form', { rm: 'unassociate_selected' }, { to_top: false });
-  };
+  }
 </tmpl_if>
 
 <tmpl_if row_count>
@@ -36,7 +36,7 @@ add_contrib = function()
       alert( Krang.L10N.loc('Nothing selected to associate!') );
     else
       Krang.Form.submit('krang_pager_form', { rm: 'associate_selected' }, { to_top: false });
-  };
+  }
 </tmpl_if>
 </script>
 

@@ -9,7 +9,7 @@ Krang.onload( function() {
 <tmpl_if row_count>
 view_template = function(id) {
     Krang.Form.submit('find_template', { rm: 'view', template_id: id });
-};
+}
 
 <tmpl_if may_checkin_all>
 checkin_selected = function() {
@@ -17,14 +17,14 @@ checkin_selected = function() {
         alert( Krang.L10N.loc('Nothing selected to check in!') );
     else
         Krang.Form.submit('krang_pager_form', { rm: 'checkin_selected' }, { to_top: false });
-};
+}
 
 steal_selected = function() {
     if ( !Krang.pager_row_checked() )
         alert( Krang.L10N.loc('Nothing selected to steal!') );
     else
         Krang.Form.submit('krang_pager_form', { rm: 'steal_selected' }, { to_top: false });
-};
+}
 </tmpl_if>
 </tmpl_if>
 </script>
