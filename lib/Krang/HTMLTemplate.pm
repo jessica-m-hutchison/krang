@@ -74,7 +74,6 @@ BEGIN { reload_paths() }
 sub new {
     my ($pkg, %arg) = @_;
     $arg{path} = $arg{path} ? _compute_path($arg{path}) : \@PATH;
-    $arg{cache} = EnableTemplateCache ? 1 : 0;
 
     # by default we search the whole path on includes so that addons
     # (which come first in the paths) can override even included templates.
@@ -87,19 +86,7 @@ sub new {
     if (pkg('Charset')->is_utf8) {
         $arg{utf8} = 1;
     }
-    # use non-localized versions of templates to avoid having it look in
-    # en/ for generated localized files that require a restart/regen on change
-    # defeating the purpose of not caching templates... no css files
-    # if(!EnableTemplateCache) {
-    #     $arg{strict} = 0;
-    #     $arg{filename} =~ s/(.*?)(?<!css)\.tmpl/$1.base.tmpl/;
-    #     $arg{filter} = sub {
-    #         my $text_ref = shift;
-    #         $$text_ref =~ s/<TMPL_LANG\s*?(.*?)>/$1/gi;
-    #     };
-    # }
-    # use Data::Dump qw/dump/;
-    # debug(dump(%arg));
+
     return $pkg->SUPER::new(%arg);
 }
 
