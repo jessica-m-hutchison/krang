@@ -97,26 +97,26 @@ sub trans_handler ($$) {
     my ($self, $r) = @_;
     my $uri  = $r->uri;
 
-    debug("Krang::Handler:  REQUEST: $uri");
+    #debug("Krang::Handler:  REQUEST: $uri");
 
     # if it's a request for a /static file then strip off the static
     # prefix that looks like "/static/XXXX" where "XXXX" is the install_id
     if ($uri =~ /^\/static\//) {
-        debug("Krang::Handler:  URI is for static resource");
+        #debug("Krang::Handler:  URI is for static resource");
 
         # find the appropriate krang file
         my $file = $uri;
         $file =~ s{^/static/[^/]+/}{};
         $file = pkg('File')->find(catfile('htdocs', $file));
         if( $file ) {
-            debug("Krang::Handler:  Rewriting to $file");
+            #debug("Krang::Handler:  Rewriting to $file");
         } else {
-            debug("Krang::Handler:  Could not find file");
+            #debug("Krang::Handler:  Could not find file");
             return NOT_FOUND unless $file;
         }
 
         if (BrowserSpeedBoost) {
-            debug("Krang::Handler:  Setting far future expiration date: Mon, 28 Jul 2014 23:30:00 GMT");
+            #debug("Krang::Handler:  Setting far future expiration date: Mon, 28 Jul 2014 23:30:00 GMT");
             # make it expire waaaaay in the future since we know the resource won't change
             $r->err_header_out('Expires'       => 'Mon, 28 Jul 2014 23:30:00 GMT');
             $r->err_header_out('Cache-Control' => 'max-age=315360000');
@@ -125,13 +125,13 @@ sub trans_handler ($$) {
                 # the prebuilt combined JS file needs to be redirected to the gzip one if we can
                 $file = "$file.gz";
                 $r->err_header_out('Content-Encoding' => 'gzip');
-                debug("Krang::Handler:  Rewriting to use pre-compressed file $file");
+                #debug("Krang::Handler:  Rewriting to use pre-compressed file $file");
             } elsif ($uri =~ /\.(css|js|html)$/) {
                 # if it's a CSS/JS/HTML file then let's minify it and optionally compress it
                 my $type = $1;
                 my $new_file = $self->_minify_and_gzip($r, $file, $type);
                 $file = $new_file if $new_file;
-                debug("Krang::Handler:  Minifying and compressing on the fly to $file");
+                #debug("Krang::Handler:  Minifying and compressing on the fly to $file");
             }
         }
 
@@ -144,7 +144,7 @@ sub trans_handler ($$) {
     # Only handle main requests, unless this is a request for bug.pl
     # which happens on redirects from ISEs
     unless ($r->is_initial_req() or $uri =~ /\/bug\.pl/) {
-        debug("Krang::Handler:  Don't rewrite internal redirects");
+        #debug("Krang::Handler:  Don't rewrite internal redirects");
         return DECLINED;
     }
 
@@ -162,7 +162,7 @@ sub trans_handler ($$) {
         }
 
         # Set current instance, or die trying
-        debug("Krang::Handler:  Setting instance to '$instance_name'");
+        #debug("Krang::Handler:  Setting instance to '$instance_name'");
         pkg('Conf')->instance($instance_name);
 
         # Propagate the instance name to the CGI-land
@@ -188,7 +188,7 @@ sub trans_handler ($$) {
         }
 
         # Set current instance, or die trying
-        debug("Krang::Handler:  Setting instance to '$instance_name'");
+        #debug("Krang::Handler:  Setting instance to '$instance_name'");
         pkg('Conf')->instance($instance_name);
 
         # Propagate the instance name to the CGI-land
@@ -221,7 +221,7 @@ sub trans_handler ($$) {
 
         # stop other requests unless they're for the root
         unless( $uri eq '/' ) {
-            debug("Can't access anything but root or static files if no instance is set");
+            #debug("Can't access anything but root or static files if no instance is set");
             return FORBIDDEN;
         }
 
@@ -270,7 +270,7 @@ sub access_handler ($$) {
             if ($bd->major > $major or ($bd->major == $major && $bd->minor >= $minor)) {
                 if ($engine_of{$browser} eq 'Gecko') {
                     my $gecko_version = $bd->gecko_version();
-                    debug("Krang::Handler:  Gecko Version: ".$gecko_version);
+                    #debug("Krang::Handler:  Gecko Version: ".$gecko_version);
                     $r->subprocess_env("KRANG_GECKO_VERSION" => $gecko_version);
                 }
 
@@ -282,7 +282,7 @@ sub access_handler ($$) {
     }
 
     # failure
-    debug("Krang::Handler:  Unsupported browser detected: " . ($r->header_in('User-Agent') || ''));
+    #debug("Krang::Handler:  Unsupported browser detected: " . ($r->header_in('User-Agent') || ''));
     $r->custom_response(FORBIDDEN, $self->forbidden_browser_message);
     return FORBIDDEN;
 }
@@ -350,7 +350,7 @@ sub authen_handler ($$) {
     # If there's no ID or no session cookie, redirect to Login
     unless ($cookies{$instance}) {
         # no cookie, redirect to login
-        debug("Krang::Handler:  No cookie found, passing Authen without user login");
+        #debug("Krang::Handler:  No cookie found, passing Authen without user login");
         return OK;
     }
 
@@ -379,7 +379,7 @@ sub authen_handler ($$) {
 
     # Check for invalid session
     unless (pkg('Session')->validate($session_id)) {
-        debug("Krang::Handler:  Invalid session '$session_id'. Wiping its cookie.");
+        #debug("Krang::Handler:  Invalid session '$session_id'. Wiping its cookie.");
         return OK;
     }
 
@@ -394,7 +394,7 @@ sub authen_handler ($$) {
     my $login_uri = $self->login_uri;
     if ($uri =~ /\Q$login_uri\E/) {
         if (!$args{rm} || ($args{rm} && $args{rm} ne 'logout')) {
-            debug("Krang::Handler: Already logged in, redirecting to workspace");
+            #debug("Krang::Handler: Already logged in, redirecting to workspace");
             return $self->_redirect_to_workspace($r, $instance);
         }
     }
@@ -683,7 +683,7 @@ sub siteserver_trans_handler ($$) {
     # Didn't find a site?  Null out doc root and forbid request
     unless ($path) {
         $r->document_root(catdir(KrangRoot, "tmp"));
-        debug("Not site found for $host");
+        #debug("Not site found for $host");
         return FORBIDDEN;
     }
 
