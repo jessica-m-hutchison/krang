@@ -269,6 +269,7 @@ sub write_conf {
 
     # CGI/Profile modes
     $template->param(
+        DEV_MODE     => $dev_mode,
         CGI_MODE     => $cgi_mode,
         PROFILE_MODE => $profile_mode,
     );
