@@ -280,6 +280,7 @@ sub log {
       unless $level;
     croak("Required argument message parameter was not passed.")
       unless defined($message);
+    return if $message =~ /redefined/;
 
     # check for valid log level
     my ($level_IV, $level_PV);
