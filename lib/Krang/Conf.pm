@@ -32,6 +32,7 @@ our @VALID_DIRECTIVES;
   DBHost
   DBSock
   DBIgnoreVersion
+  DevMode
   DisableScheduler
   EnableTemplateCache
   EnableBugzilla

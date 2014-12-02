@@ -108,7 +108,7 @@ use Krang::ClassLoader Conf => qw(KrangRoot InstanceHostName Skin KrangUser Kran
   InstanceApacheAddr InstanceApachePort InstanceSSLCertificateFile
   InstanceSSLCertificateKeyFile InstanceSSLCertificateChainFile
   InstanceSSLCACertificateFile InstanceSSLCARevocationFile InstanceSSLPort
-  RewriteLogLevel AvailableLanguages BrowserSpeedBoost
+  RewriteLogLevel AvailableLanguages BrowserSpeedBoost DevMode
 );
 use Krang::ClassLoader 'File';
 use Krang::ClassLoader Localization => qw(%LANG);
@@ -116,6 +116,7 @@ use Krang::ClassLoader 'IO';
 use Getopt::Long;
 use Capture::Tiny qw(capture);
 
+my $dev_mode     = DevMode || ( exists $ENV{DEV_MODE} && $ENV{DEV_MODE} ? 1 : 0 );
 my $cgi_mode     = exists $ENV{CGI_MODE}     && $ENV{CGI_MODE}     ? 1 : 0;
 my $profile_mode = exists $ENV{PROFILE_MODE} && $ENV{PROFILE_MODE} ? 1 : 0;
 GetOptions(
@@ -123,8 +124,9 @@ GetOptions(
     'profile|profile-mode|profile_mode' => \$profile_mode,
 );
 
-print STDERR "CGI Mode activated\n" if $cgi_mode;
-print STDERR "Profile Mode (using Devel::NYTProf) activated\n" if $profile_mode;
+print STDERR "!! CGI Mode activated\n" if $cgi_mode;
+print STDERR "!! Profile Mode (using Devel::NYTProf) activated\n" if $profile_mode;
+print STDERR "--> Running in Development Mode (auto-reload modules / templates) <--\n" if $dev_mode;
 
 # SSL directives
 my @ssl_directives = qw(
@@ -224,12 +226,13 @@ sub start {
     write_conf();
     make_links();
     apply_skin();
-    make_templates();
-    make_js_localizer();
-    prepare_for_browser_speed_boost();
-    make_js_for_poortext();
-    combine_preview_editor_js() if EnablePreviewEditor;
-
+    if(!$dev_mode) {
+        make_templates();
+        make_js_localizer();
+        prepare_for_browser_speed_boost();
+        make_js_for_poortext();
+        combine_preview_editor_js() if EnablePreviewEditor;
+    }
     print "krang_apachectl $command: starting httpd\n";
     my $return;
     my ($out, $err) = capture { $return = system(@httpd) };
