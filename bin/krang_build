@@ -121,7 +121,7 @@ my $KrangRoot       = $ENV{KRANG_ROOT};
 my $src_dir         = catdir($ENV{KRANG_ROOT}, 'src');
 my $dest_dir        = catdir($ENV{KRANG_ROOT}, 'lib');
 my $apache_dest_dir = catdir($ENV{KRANG_ROOT}, 'apache');
-my $build_dir       = tempdir(DIR => catdir($ENV{KRANG_ROOT}, 'tmp'));
+my $build_dir       = catdir($ENV{KRANG_ROOT}, 'tmp/build');
 
 # a few useful constants
 my $apache_dir = opendir(my $APACHE_DIR, catdir($KrangRoot, 'src', 'Apache-MOD_PERL'));
@@ -262,7 +262,10 @@ unless ($skip_all_modules) {
     # shuffle Expect, IO-Tty, Test-Harness and Test-Simple to the front
     # since they're needed by later build steps (modules last in this
     # list are actually built first
+        # ExtUtils-ParseXS
     my @early_modules = qw(
+        Module-Load-Conditional
+        Module-Load
         Test-Simple
         ExtUtils-Install
         Module-Build
@@ -270,11 +273,8 @@ unless ($skip_all_modules) {
         Module-Metadata
         Perl-OSType
         Test-Harness
-        ExtUtils-ParseXS
         ExtUtils-CBuilder
         IPC-Cmd
-        Module-Load-Conditional
-        Module-Load
         Params-Check
         Locale-Maketext-Simple
         Module-CoreList
@@ -368,9 +368,9 @@ unless ($skip_apache) {
 }
 
 # build libapreq now that mod_perl is in place
-if (my ($libapreq) = grep /^$LIBAPREQ/, @files) {
-    build_module($libapreq);
-}
+#if (my ($libapreq) = grep /^$LIBAPREQ/, @files) {
+#    build_module($libapreq);
+#}
 
 # drop a build.db file describing the build, used by krang_makedist
 # and krang_install

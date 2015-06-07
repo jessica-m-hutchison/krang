@@ -41,6 +41,14 @@ build: clean
 	bin/krang_build
 	$(call notify, "Krang build finished", "at $(KRANG_ROOT)")
 
+apache_build:
+	bin/krang_build --rebuild --no-modules --with-ssl
+	$(call notify, "Apache only build finished", "at $(KRANG_ROOT)")
+
+modules_build:
+	bin/krang_build --rebuild --no-apache
+	$(call notify, "Modules only build finished", "at $(KRANG_ROOT)")
+
 dist:
 	bin/krang_makedist
 	$(call notify, "Krang Dist created")

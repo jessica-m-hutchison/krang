@@ -605,7 +605,7 @@ sub build_perl_module {
         $make_cmd = './Build';
     } else {
         $cmd =
-          "$^X Makefile.PL LIB=$dest_dir INSTALLBIN=$bin_dir INSTALLSCRIPT=$bin_dir PREFIX=$trash_dir INSTALLMAN3DIR=' ' INSTALLMAN1DIR=' '";
+          "$^X Makefile.PL LIB=$dest_dir INSTALLBIN=$bin_dir INSTALLSCRIPT=$bin_dir INSTALLMAN3DIR=' ' INSTALLMAN1DIR=' '";
         $make_cmd = 'make';
     }
 
