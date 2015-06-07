@@ -297,7 +297,7 @@ unless ($skip_all_modules) {
         next unless $file =~ /gz$/;
 
         # wait to build libapreq till after building Apache
-        next if $file =~ /^$LIBAPREQ/o;
+        next if $file =~ /^$LIBAPREQ/o && ! grep { $LIBAPREQ } @modules;
 
         build_module($file);
     }
@@ -371,9 +371,9 @@ unless ($skip_apache) {
 }
 
 # build libapreq now that mod_perl is in place
-#if (my ($libapreq) = grep /^$LIBAPREQ/, @files) {
-#    build_module($libapreq);
-#}
+if (my ($libapreq) = grep /^$LIBAPREQ/, @files) {
+    build_module($libapreq);
+}
 
 # drop a build.db file describing the build, used by krang_makedist
 # and krang_install
