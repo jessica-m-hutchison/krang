@@ -266,19 +266,18 @@ unless ($skip_all_modules) {
     # shuffle Expect, IO-Tty, Test-Harness and Test-Simple to the front
     # since they're needed by later build steps (modules last in this
     # list are actually built first
-        # ExtUtils-ParseXS
+    # ExtUtils-ParseXS
     my @early_modules = qw(
-        Module-Load-Conditional
-        Module-Load
         Test-Simple
         ExtUtils-Install
         Module-Build
-        version
         Module-Metadata
         Perl-OSType
         Test-Harness
         ExtUtils-CBuilder
         IPC-Cmd
+        Module-Load-Conditional
+        Module-Load
         Params-Check
         Locale-Maketext-Simple
         Module-CoreList
