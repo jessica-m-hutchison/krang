@@ -121,7 +121,11 @@ my $KrangRoot       = $ENV{KRANG_ROOT};
 my $src_dir         = catdir($ENV{KRANG_ROOT}, 'src');
 my $dest_dir        = catdir($ENV{KRANG_ROOT}, 'lib');
 my $apache_dest_dir = catdir($ENV{KRANG_ROOT}, 'apache');
-my $build_dir       = catdir($ENV{KRANG_ROOT}, 'tmp/build');
+my $build_dir = catdir($ENV{ARCOS_ROOT}, 'tmp', 'build');
+
+unless(-e $build_dir && -d $build_dir) {
+    mkdir $build_dir || die $!;
+}
 
 # a few useful constants
 my $apache_dir = opendir(my $APACHE_DIR, catdir($KrangRoot, 'src', 'Apache-MOD_PERL'));
