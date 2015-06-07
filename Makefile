@@ -38,7 +38,7 @@ all:
 	@echo "No default make target."
 
 build: clean
-	bin/krang_build
+	bin/krang_build --with-ssl
 	$(call notify, "Krang build finished", "at $(KRANG_ROOT)")
 
 apache_build:
@@ -53,12 +53,13 @@ dist:
 	bin/krang_makedist
 	$(call notify, "Krang Dist created")
 
-clean:	bench_clean
+clean: bench_clean
 	- find lib/ -mindepth 1 -maxdepth 1 | grep -v Krang | grep -v .svn | grep -v bin | grep -v '.cvsignore' | grep -v '^lib/Devel/CheckLib.pm' | grep -v '^lib/Devel' | xargs rm -rf
 	- find apache/ -mindepth 1 -maxdepth 1 | grep -v .svn | grep -v '.cvsignore' | xargs rm -rf
 	- rm -f data/build.db
 	- rm -f htdocs/data
 	- rm -f htdocs/tmp
+	- rm -r tmp/build
 	- rm -rf conf/ssl.crl
 	- rm -rf conf/ssl.crt
 	- rm -rf conf/ssl.csr
